@@ -1,0 +1,7 @@
+.separador{
+    border: 1px solid;
+    margin: 50px;
+    padding: 10px;
+    width: fit-content;
+    background-color: rgb(200, 217, 236);
+}

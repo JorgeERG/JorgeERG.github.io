@@ -1,105 +1,111 @@
-/* document busca un documento(html), getElementById busca una clase y 
-innerHTML nos permite poner que hay dentro de esa clase*/
-document.getElementById("demo").innerHTML = "0. hola " + (5 + 6);
-/* ---------------------------------------------------------------------------- */
+// convierte el contenido de upper y lower en variables
+// upper muestra la operacion
+let outputUpper = document.querySelector("#upper");
+// lower muestra el esultado
+let outputLower = document.querySelector("#lower");
 
-/* crea una alerta con el contenido en parentesis */
-/* window.alert(5+6); */
-/* ---------------------------------------------------------------------------- */
-/* 1 */
-function tiempo() {
-  var hoy = new Date();
-  var dia = hoy.getDay();
-  var listaDias = [
-    "domingo",
-    "lunes",
-    "martes",
-    "miercoles",
-    "jueves",
-    "viernes",
-    "sabado",
-  ];
-  var hora = hoy.getHours();
-  var min = hoy.getMinutes();
-  var sec = hoy.getSeconds();
-  if (hora > 12) {
-    hora = hora - 12;
-    var ampm = "PM";
+// funcion para poner numeros en la vista
+/* si output lower es igual a cero: output lower se convierte en el boton presionado, si no, 
+  output lower se le sumara el boton presionado cada vez que se invoca la funion*/
+function pressNum(e) {
+  if (outputLower.innerHTML === "0") {
+    outputLower.innerHTML = e.innerHTML;
   } else {
-    var ampm = "AM";
+    outputLower.innerHTML += e.innerHTML;
   }
-  if (hora < 10) {
-    hora = "0" + hora;
-  }
-  if (min < 10) {
-    min = "0" + min;
-  }
-  if (sec < 10) {
-    sec = "0" + sec;
-  }
-  document.getElementById("dia").innerHTML = listaDias[dia];
-  document.getElementById("tiempo").innerHTML =
-    hora + ":" + min + ":" + sec + " " + ampm;
 }
-tiempo();
-tiempo = setInterval(tiempo, 1000);
-/* ---------------------------------------------------------------------------- */
-/* 2 */
-function printPage() {
-  window.print();
-}
-/* ---------------------------------------------------------------------------- */
-/* 3 */
-function añoActual() {
-  var actual = new Date();
-  var dd = actual.getDate();
-  if (dd < 10) {
-    dd = "0" + dd;
+
+function pressOperator(e) {
+  //slice corta y elimina el texto dependiendo de los parametros. slice(0, 1) en hola: ho
+  //outputLower.innerHTML.slice(-1) es para obtener el ultimo digito insertado. 324981 = 1
+  let lastOperator = outputLower.innerHTML.slice(-1);
+  /* si, lastoperator(el ultimo digito de la operacion) contiene el caracterer, se elimina el
+     operador acutal y se añade el nuevo */
+  if (lastOperator.includes("+")) {
+    outputLower.innerHTML = outputLower.innerHTML.slice(0, -1) + e.innerHTML;
+  } else if (lastOperator.includes("-")) {
+    outputLower.innerHTML = outputLower.innerHTML.slice(0, -1) + e.innerHTML;
+  } else if (lastOperator.includes("x")) {
+    outputLower.innerHTML = outputLower.innerHTML.slice(0, -1) + e.innerHTML;
+  } else if (lastOperator.includes("÷")) {
+    outputLower.innerHTML = outputLower.innerHTML.slice(0, -1) + e.innerHTML;
+  } else if (lastOperator.includes("%")) {
+    outputLower.innerHTML = outputLower.innerHTML.slice(0, -1) + e.innerHTML;
+  } else if (lastOperator.includes("√")) {
+    outputLower.innerHTML = outputLower.innerHTML.slice(0, -1) + e.innerHTML;
+  } else if (lastOperator.includes("ⁿ")) {
+    outputLower.innerHTML = outputLower.innerHTML.slice(0, -1) + e.innerHTML;
+  } else if (lastOperator.includes(".")) {
+    outputLower.innerHTML = outputLower.innerHTML.slice(0, -1) + e.innerHTML;
+  } else {
+    outputLower.innerHTML += e.innerHTML;
   }
-  var mm = actual.getMonth();
-  if (mm < 10) {
-    mm = "0" + mm;
+}
+
+/* añade el punto, se utiliza el mismo tipo de funcion que los operadores para evitar que se
+  añada un operador despues de un punto */
+function pressDot() {
+  let lastOperator = outputLower.innerHTML.slice(-1);
+  if (lastOperator.includes("+")) {
+    outputLower.innerHTML = outputLower.innerHTML.slice(0, -1) + e.innerHTML;
+  } else if (lastOperator.includes("-")) {
+    outputLower.innerHTML = outputLower.innerHTML.slice(0, -1) + e.innerHTML;
+  } else if (lastOperator.includes("x")) {
+    outputLower.innerHTML = outputLower.innerHTML.slice(0, -1) + e.innerHTML;
+  } else if (lastOperator.includes("÷")) {
+    outputLower.innerHTML = outputLower.innerHTML.slice(0, -1) + e.innerHTML;
+  } else if (lastOperator.includes("%")) {
+    outputLower.innerHTML = outputLower.innerHTML.slice(0, -1) + e.innerHTML;
+  } else if (lastOperator.includes("√")) {
+    outputLower.innerHTML = outputLower.innerHTML.slice(0, -1) + e.innerHTML;
+  } else if (lastOperator.includes("ⁿ")) {
+    outputLower.innerHTML = outputLower.innerHTML.slice(0, -1) + e.innerHTML;
+  } else if (lastOperator.includes(".")) {
+    outputLower.innerHTML = outputLower.innerHTML.slice(0, -1) + e.innerHTML;
+  } else {
+    outputLower.innerHTML += ".";
   }
-  var yyyy = actual.getFullYear();
-  document.getElementById("año").innerHTML = dd + "-" + mm + "-" + yyyy;
 }
-añoActual();
-añoActual = setInterval(añoActual, 1000);
-/* ---------------------------------------------------------------------------- */
-/* 4 */
-function Area() {
-  var side1 = document.getElementById("num1").value;
-  var side2 = document.getElementById("num2").value;
-  var side3 = document.getElementById("num3").value;
-  var s = (parseInt(side1) + parseInt(side2) + parseInt(side3)) / 2;
-  var area = Math.sqrt(s * ((s - side1) * (s - side2) * (s - side3)));
-  document.getElementById("area").innerHTML = area;
+
+function pressSqrt() {
+  outputLower.innerHTML = "√";
 }
-/* ---------------------------------------------------------------------------- */
-/* 5 */
-function animate_string(id) 
-{
-    var element = document.getElementById(id);
-    var textNode = element.childNodes[0]; // assuming no other children
-    var text = textNode.data;
 
-setInterval(function () 
-{
- text = text[text.length - 1] + text.substring(0, text.length - 1);
-  textNode.data = text;
-}, 100);
+//cambia las funciones a nada y 0, basicamente lo reinicia
+function pressClear() {
+  outputUpper.innerHTML = "";
+  outputLower.innerHTML = "0";
 }
-/* ---------------------------------------------------------------------------- */
-/* 6 */
 
-/* ---------------------------------------------------------------------------- */
-/* 7 */
+// function que calcula el resultado
+function pressEqual() {
+  //esto sube la operacion de lower a upper
+  let resultado = outputLower.innerHTML;
+  outputUpper.innerHTML = resultado;
 
-/* ---------------------------------------------------------------------------- */
-/* 8 */
+  /* resultado tiene la operacion.  utilizando replace cambiamos un operador del boton por 
+  un operador que funcione en javascript*/
+  resultado = resultado.replace(/x/g, "*").replace(/÷/g, "/");
 
-/* ---------------------------------------------------------------------------- */
-/* 9 */
+  //si hay un simbolo de raiz, se remplazara por la formula de javascript.
+  if (resultado.includes("√")) {
+    resultado = resultado.replace(/√/g, "Math.sqrt(") + ")";
+  }
 
-/* ---------------------------------------------------------------------------- */
-/* 10 */
+  if (resultado.includes("ⁿ")) {
+    resultado = "Math.pow(" + resultado.replace(/ⁿ/g, ", ") + ")";
+  }
+
+  let result;
+  try {
+    result = eval(resultado);
+    // si los numeros decimales saln mas de 4, esto los acortara a 4
+    if (result.toString().indexOf(".") !== -1) {
+      result = result.toFixed(4);
+    }
+    //si la operacion tiene algun error, se mostrara error
+  } catch (e) {
+    result = "Error";
+  }
+  outputLower.innerHTML = result;
+}
